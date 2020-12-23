@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const path = require("path");
 const app = express();
 
 app.use(cors());
@@ -9,6 +10,14 @@ app.use(express.static("build"));
 
 app.get("/", (req, res) => {
   res.send("afreeca invest api");
+});
+
+app.get("/pageb", function (req, res) {
+  res.sendFile(path.join(__dirname, "./build/index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
 });
 
 app.get("/api/last_quote/stocks/:symbol", async (req, res) => {
